@@ -20,7 +20,12 @@ class GameManager:
         self.rotate_unit = 0.02
         
         self.ufo = UFO (self.x_translate, self.y_translate, self.z_translate, self.x_rotate, self.y_rotate, self.z_rotate)
-        self.meteorite = Meteorite(1, 1, -10, 0, 0, 0)
+        self.mateorites = [Meteorite(1, -2, -10, 0, 0, 0),
+                          Meteorite(-1, 1, -8, 0, 0, 0),
+                          Meteorite(0.3, 3, -5, 0, 0, 0),
+                          Meteorite(0.2, 1, -20, 0, 0, 0),
+                          Meteorite(1.5, 4, -15, 0, 0, 0),
+                          Meteorite(1, 1, -12, 0, 0, 0)]
 
     def handle_events(self):
             # Điều khiển camera với các phím mũi tên và các phím số
@@ -98,13 +103,14 @@ class GameManager:
                     if self.z_translate < 0.0: self.z_translate = 0.0
 
     def update(self):
-        self.meteorite.update()
-        self.meteorite.x -= self.ufo.speed[0]*self.x_translate*0.002
-        self.meteorite.y -= self.ufo.speed[1]*self.y_translate*0.002
-        self.meteorite.z += self.ufo.speed[2]*self.z_translate*0.002
-        self.meteorite.x_rotate += self.x_rotate*0.5
-        self.meteorite.y_rotate += self.y_rotate
-        self.meteorite.z_rotate += self.z_rotate*0.5
+        for mateorite in self.mateorites:
+            mateorite.update()
+            mateorite.x -= self.ufo.speed[0]*self.x_translate*0.002
+            mateorite.y -= self.ufo.speed[1]*self.y_translate*0.002
+            mateorite.z += self.ufo.speed[2]*self.z_translate*0.002
+            mateorite.x_rotate += self.x_rotate*0.5
+            mateorite.y_rotate += self.y_rotate
+            mateorite.z_rotate += self.z_rotate*0.5
         self.ufo.update()
         # self.ufo.x += self.ufo.speed[0]*self.x_translate
         # self.ufo.y += self.ufo.speed[1]*self.y_translate

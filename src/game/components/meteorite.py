@@ -27,6 +27,9 @@ class Meteorite(pygame.sprite.Sprite):
         glRotatef(self.x_rotate, 1, 0, 0)
         glRotatef(self.y_rotate, 0, 1, 0)
         glRotatef(self.z_rotate, 0, 0, 1)
+        print(self.x_rotate)
+        print(self.y_rotate)
+        print(self.z_rotate)
         self.draw_mateorite()
         glPopMatrix()
 
