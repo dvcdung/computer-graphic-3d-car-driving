@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from game.components.ufo import UFO
 from game.components.meteorite import Meteorite
+import random
 
 class GameManager:
     def __init__(self, width, height):
@@ -50,47 +51,47 @@ class GameManager:
                     self.z_rotate = (abs(self.z_rotate) - self.rotate_unit)*i
 
             if keys[K_UP]:
-                if self.x_rotate > -1:
-                    if self.x_rotate < -1:
-                        self.x_rotate = -1
+                if self.y_translate > -1:
+                    if self.y_translate < -1:
+                        self.y_translate = -1
                         pass
-                    self.x_rotate -= self.rotate_unit
+                    self.y_translate -= self.move_unit
             if keys[K_DOWN]:
-                if self.x_rotate < 1:
-                    if self.x_rotate > 1:
-                        self.x_rotate = 1
+                if self.y_translate < 1:
+                    if self.y_translate > 1:
+                        self.y_translate = 1
                         pass
-                    self.x_rotate += self.rotate_unit
-            if not keys[K_UP] and not keys[K_DOWN] and self.x_rotate != 0:
-                    i = self.x_rotate/abs(self.x_rotate)
-                    if int(self.x_rotate/self.rotate_unit*5) == 0:
-                        self.x_rotate = 0
+                    self.y_translate += self.move_unit
+            if not keys[K_UP] and not keys[K_DOWN] and self.y_translate != 0:
+                    i = self.y_translate/abs(self.y_translate)
+                    if int(self.y_translate/self.move_unit*5) == 0:
+                        self.y_translate = 0
                         pass
-                    self.x_rotate = (abs(self.x_rotate) - self.rotate_unit)*i
+                    self.y_translate = (abs(self.y_translate) - self.move_unit)*i
 
             if keys[K_LEFT]:
-                if self.y_rotate > -1:
-                    if self.y_rotate < -1:
-                        self.y_rotate = -1
+                if self.x_translate > -1:
+                    if self.x_translate < -1:
+                        self.x_translate = -1
                         pass
-                    self.y_rotate -= self.rotate_unit
+                    self.x_translate -= self.move_unit
             if keys[K_RIGHT]:
-                if self.y_rotate < 1:
-                    if self.y_rotate > 1:
-                        self.y_rotate = 1
+                if self.x_translate < 1:
+                    if self.x_translate > 1:
+                        self.x_translate = 1
                         pass
-                    self.y_rotate += self.rotate_unit
-            if not keys[K_LEFT] and not keys[K_RIGHT] and self.y_rotate != 0:
-                    i = self.y_rotate/abs(self.y_rotate)
-                    if int(self.y_rotate/self.rotate_unit*5) == 0:
-                        self.y_rotate = 0
+                    self.x_translate += self.move_unit
+            if not keys[K_LEFT] and not keys[K_RIGHT] and self.x_translate != 0:
+                    i = self.x_translate/abs(self.x_translate)
+                    if int(self.x_translate/self.move_unit*5) == 0:
+                        self.x_translate = 0
                         pass
-                    self.y_rotate = (abs(self.y_rotate) - self.rotate_unit)*i
+                    self.x_translate = (abs(self.x_translate) - self.move_unit)*i
                     
             if keys[K_w]:
                 if self.z_translate < 1:
-                    if self.y_rotate > 1:
-                        self.y_rotate = 1
+                    if self.z_translate > 1:
+                        self.z_translate = 1
                         pass
                     self.z_translate += self.move_unit
             elif not keys[K_SPACE]:
@@ -103,10 +104,15 @@ class GameManager:
                     if self.z_translate < 0.0: self.z_translate = 0.0
 
     def update(self):
+        while len(self.mateorites) < 100:
+            self.mateorites.append(Meteorite(random.uniform(-30, 30), random.uniform(-30, 30), random.uniform(-5, -50), 0, 0, 0))
         for mateorite in self.mateorites:
+            if mateorite.z > self.ufo.z:
+                self.mateorites.remove(mateorite)
+                continue
             mateorite.update()
             mateorite.x -= self.ufo.speed[0]*self.x_translate*0.002
-            mateorite.y -= self.ufo.speed[1]*self.y_translate*0.002
+            mateorite.y += self.ufo.speed[1]*self.y_translate*0.002
             mateorite.z += self.ufo.speed[2]*self.z_translate*0.002
             mateorite.x_rotate += self.x_rotate*0.5
             mateorite.y_rotate += self.y_rotate

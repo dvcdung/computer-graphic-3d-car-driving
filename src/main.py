@@ -19,8 +19,10 @@ glMatrixMode(GL_PROJECTION)
 projection_matrix = pyrr.matrix44.create_perspective_projection_matrix(45, width/height, 0.1, 50.0)
 glLoadMatrixf(projection_matrix)
 glMatrixMode(GL_MODELVIEW)
-glTranslatef(0.0, -0.06, -1)
-# glTranslatef(0.0, -0.055, -0.03)
+a = -0.1
+b = -2
+status = 0
+glTranslatef(0.0, -0.055, -0.03)
 
 # Tạo đối tượng GameManager
 game_manager = GameManager(width, height)
@@ -46,9 +48,5 @@ while True:
     game_manager.handle_events()
     game_manager.update()
 
-    # Vẽ đối tượng lên màn hình
-    # game_manager.draw()
-
-    # Cập nhật màn hình
     pygame.display.flip()
     pygame.time.wait(10)

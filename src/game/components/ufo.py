@@ -15,7 +15,7 @@ class UFO(pygame.sprite.Sprite):
         self.x_rotate = x_rotate
         self.y_rotate = y_rotate
         self.z_rotate = z_rotate
-        self.speed = [10, 10, 10]
+        self.speed = [30, 30, 50]
         self.bound = {"x": 0.15, "y": 0.075, "z": 0.15}
 
 
