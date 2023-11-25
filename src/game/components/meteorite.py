@@ -16,9 +16,9 @@ class Meteorite(pygame.sprite.Sprite):
         self.x_rotate = x_rotate
         self.y_rotate = y_rotate
         self.z_rotate = z_rotate
-        self.color = (random.uniform(0.2, 10), random.uniform(0.2, 1.0), random.uniform(0.2, 1.0))
+        self.color = (random.uniform(0.2, 1.0), random.uniform(0.2, 1.0), random.uniform(0.2, 1.0))
         self.random_num = random.randint(8, 25)
-        self.radius = random.uniform(0.025, 0.075)
+        self.radius = random.uniform(0.025, random.uniform(0.03, random.uniform(0.035, random.uniform(0.04, 1.25))))
         self.bound = {"x": 0.15, "y": 0.075, "z": 0.15}
 
 
